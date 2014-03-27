@@ -220,6 +220,11 @@ struct modesMessage {
     int vert_rate_sign;         /* Vertical rate sign. */
     int vert_rate;              /* Vertical rate. */
     int velocity;               /* Computed from EW and NS velocity. */
+    int nacp                    /* NACp */
+    int nacv                    /* NACv */
+    int nic                     /* NIC */
+    int sda                     /* SDA */
+    int sil                     /* SIL */
 
     /* DF4, DF5, DF20, DF21 */
     int fs;                     /* Flight status for DF4,5,20,21 */
