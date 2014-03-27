@@ -656,7 +656,7 @@ uint32_t modesChecksum(unsigned char *msg, int bits) {
 int modesMessageLenByType(int type) {
     if (type == 16 || type == 17 ||
         type == 19 || type == 20 ||
-        type == 21)
+        type == 21 || type == 31)
         return MODES_LONG_MSG_BITS;
     else
         return MODES_SHORT_MSG_BITS;
@@ -792,7 +792,8 @@ int bruteForceAP(unsigned char *msg, struct modesMessage *mm) {
         msgtype == 16 ||        /* Long Air-Air survillance */
         msgtype == 20 ||        /* Comm-A, altitude request */
         msgtype == 21 ||        /* Comm-A, identity request */
-        msgtype == 24)          /* Comm-C ELM */
+        msgtype == 24 ||        /* Comm-C ELM */
+        msgtype == 31)          /* Aircraft Operational Status */        
     {
         uint32_t addr;
         uint32_t crc;
@@ -1107,7 +1108,11 @@ void decodeModesMessage(struct modesMessage *mm, unsigned char *msg) {
                 mm->heading = (360.0/128) * (((msg[5] & 3) << 5) |
                                               (msg[6] >> 3));
             }
-        }
+        } else if (mm->metype == 31) {
+        /* Aircraft Status Message */
+       /     if (mm->mesub ==1 || mm->mesub ==2) { 
+       /         mm->nacp = msg[]
+       /         mm->nacv =
     }
     mm->phase_corrected = 0; /* Set to 1 by the caller if needed. */
 }
